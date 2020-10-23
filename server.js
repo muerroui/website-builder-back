@@ -2,7 +2,7 @@ const express = require('express')
 const mongodb = require('mongodb')
 const cors = require('cors')
 const auth = require("./middlewares/auth")
-const siteCollectionsController = require('./controllers/site-collections.controller');
+const siteCollectionsController = require('./controllers/site.controller');
 const sitePagesController = require('./controllers/site-pages.controller');
 const userController = require('./controllers/user.controller');
 
@@ -32,8 +32,8 @@ app.put('/site-pages/:id', sitePagesController.put);
 app.delete('/site-pages/:id', sitePagesController.deleteById);
 
 
-app.post('/site-collections', auth, siteCollectionsController.post);
-app.get('/site-collections', auth, siteCollectionsController.get);
-app.get('/site-collections/:id',auth, siteCollectionsController.getById);
-app.put('/site-collections/:id', auth, siteCollectionsController.put);
-app.delete('/site-collections/:id',auth,  siteCollectionsController.deleteById);
+app.post('/site', auth, siteCollectionsController.post);
+app.get('/site', auth, siteCollectionsController.get);
+app.get('/site/:id',auth, siteCollectionsController.getById);
+app.put('/site/:id', auth, siteCollectionsController.put);
+app.delete('/site/:id',auth,  siteCollectionsController.deleteById);
