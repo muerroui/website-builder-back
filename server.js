@@ -32,8 +32,8 @@ app.put('/site-pages/:id', sitePagesController.put);
 app.delete('/site-pages/:id', sitePagesController.deleteById);
 
 
-app.post('/site', siteCollectionsController.post);
-app.get('/site', siteCollectionsController.get);
-app.get('/site/:id', siteCollectionsController.getById);
-app.put('/site/:id', siteCollectionsController.put);
-app.delete('/site/:id',  siteCollectionsController.deleteById);
+app.post('/sites', siteCollectionsController.post);
+app.get('/sites', siteCollectionsController.get);
+app.get('/sites/:id', siteCollectionsController.getById);
+app.put('/sites/:id', siteCollectionsController.put);
+app.delete('/sites/:id',  siteCollectionsController.deleteById);

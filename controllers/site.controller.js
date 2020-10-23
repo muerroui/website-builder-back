@@ -8,7 +8,7 @@ mongodb.connect(
     }
 )
 function post(req, res) {
-    db.collection('site').insertOne(req.body, function (
+    db.collection('sites').insertOne(req.body, function (
         err,
         info
     ) {
@@ -17,7 +17,7 @@ function post(req, res) {
 }
 
 function get(req, res) {
-    db.collection('site')
+    db.collection('sites')
         .find()
         .toArray(function (err, items) {
             res.send(items)
@@ -25,14 +25,14 @@ function get(req, res) {
 }
 
 function getById(req, res) {
-    db.collection('site')
+    db.collection('sites')
         .findOne({ _id: new mongodb.ObjectId(req.params.id) }, function (err, items) {
             res.send(items)
         })
 }
 
 function put(req, res) {
-    db.collection('site').findOneAndUpdate(
+    db.collection('sites').findOneAndUpdate(
         { _id: new mongodb.ObjectId(req.params.id) },
         { $set: req.body },
         function () {
@@ -42,7 +42,7 @@ function put(req, res) {
 }
 
 function deleteById(req, res) {
-    db.collection('site').deleteOne(
+    db.collection('sites').deleteOne(
         { _id: new mongodb.ObjectId(req.params.id) },
         function () {
             res.send('Successfully deleted!')
