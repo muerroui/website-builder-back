@@ -1,5 +1,10 @@
 const express = require('express')
 const mongodb = require('mongodb')
+const cors = require('cors')
+const auth = require("./middlewares/auth")
+const siteCollectionsController = require('./controllers/site-collections.controller');
+const sitePagesController = require('./controllers/site-pages.controller');
+const userController = require('./controllers/user.controller');
 
 const app = express()
 let db = require('./config/keys').mongoURI;
@@ -15,50 +20,20 @@ mongodb.connect(
 
 app.use(express.json())
 
-app.post('/site-pages', function (req, res) {
-  // Sending request to create a data
-  db.collection('site-pages').insertOne(req.body, function (
-    err,
-    info
-  ) {
-    res.json(info.ops[0])
-  })
-})
+app.use(cors());
 
-app.get('/site-pages', function (req, res) {
-  // getting all the data
-  db.collection('site-pages')
-    .find()
-    .toArray(function (err, items) {
-      res.send(items)
-    })
-})
+app.post("/register", userController.registerNewUser);
+app.post("/login", userController.loginUser);
 
-app.get('/site-pages/:id', function (req, res) {
-  // getting data of one item
-  db.collection('site-pages')
-    .findOne({ _id: new mongodb.ObjectId(req.params.id) }, function (err, items) {
-      res.send(items)
-    })
-})
+app.post('/site-pages', sitePagesController.post);
+app.get('/site-pages', sitePagesController.get);
+app.get('/site-pages/:id', sitePagesController.getById);
+app.put('/site-pages/:id', sitePagesController.put);
+app.delete('/site-pages/:id', sitePagesController.deleteById);
 
-app.put('/site-pages/:id', function (req, res) {
-  // updating a data by it's ID and new value
-  db.collection('site-pages').findOneAndUpdate(
-    { _id: new mongodb.ObjectId(req.params.id) },
-    { $set: req.body },
-    function () {
-      res.send('Success updated!')
-    }
-  )
-})
 
-app.delete('/site-pages/:id', function (req, res) {
-  // deleting a data by it's ID
-  db.collection('site-pages').deleteOne(
-    { _id: new mongodb.ObjectId(req.params.id) },
-    function () {
-      res.send('Successfully deleted!')
-    }
-  )
-})
+app.post('/site-collections', siteCollectionsController.post);
+app.get('/site-collections', auth, siteCollectionsController.get);
+app.get('/site-collections/:id', siteCollectionsController.getById);
+app.put('/site-collections/:id', siteCollectionsController.put);
+app.delete('/site-collections/:id', siteCollectionsController.deleteById);
