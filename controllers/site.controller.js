@@ -21,7 +21,7 @@ function postToExistingSite(req, res) {
     db.collection('sites')
     .findOne({ _id: new mongodb.ObjectId(req.params.id) }, function (err, item) {
         if (!item) {
-            res.status(404).json({'test': 'test'});
+            res.status(404).json({});
             return;
         }
         const existingSite = item;
