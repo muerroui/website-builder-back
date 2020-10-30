@@ -32,6 +32,7 @@ app.put('/site-pages/:id', sitePagesController.put);
 app.delete('/site-pages/:id', sitePagesController.deleteById);
 
 
+app.post('/sites/:id/site_pages', siteCollectionsController.postToExistingSite);
 app.post('/sites', siteCollectionsController.post);
 app.get('/sites', siteCollectionsController.get);
 app.get('/sites/:id', siteCollectionsController.getById);

@@ -16,6 +16,33 @@ function post(req, res) {
     })
 }
 
+function postToExistingSite(req, res) {
+    console.log('req', req.params.id);
+    db.collection('sites')
+    .findOne({ _id: new mongodb.ObjectId(req.params.id) }, function (err, item) {
+        if (!item) {
+            res.status(404).json({'test': 'test'});
+            return;
+        }
+        const existingSite = item;
+        db.collection('sites').insertOne(req.body, function (
+            err,
+            info
+        ) {
+            existingSite.site_pages = existingSite.site_pages ? existingSite.site_pages: [];
+            existingSite.site_pages.push(info.ops[0]);
+            db.collection('sites').findOneAndUpdate(
+                { _id: new mongodb.ObjectId(req.params.id) },
+                { $set: existingSite },
+                function () {
+                    res.json(existingSite);
+                    return;
+                }
+            )
+        })
+    });
+}
+
 function get(req, res) {
     db.collection('sites')
         .find()
@@ -54,6 +81,7 @@ module.exports = {
     get,
     getById,
     post,
+    postToExistingSite,
     put,
     deleteById
 };
