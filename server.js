@@ -22,19 +22,19 @@ app.use(express.json())
 
 app.use(cors());
 
-app.post("/register", userController.registerNewUser);
-app.post("/login", userController.loginUser);
+app.post("/api/register", userController.registerNewUser);
+app.post("/api/login", userController.loginUser);
 
-app.post('/site-pages', sitePagesController.post);
-app.get('/site-pages', sitePagesController.get);
-app.get('/site-pages/:id', sitePagesController.getById);
-app.put('/site-pages/:id', sitePagesController.put);
-app.delete('/site-pages/:id', sitePagesController.deleteById);
+app.post('/api/site-pages', sitePagesController.post);
+app.get('/api/site-pages', sitePagesController.get);
+app.get('/api/site-pages/:id', sitePagesController.getById);
+app.put('/api/site-pages/:id', sitePagesController.put);
+app.delete('/api/site-pages/:id', sitePagesController.deleteById);
 
 
-app.post('/sites/:id/site_pages', siteCollectionsController.postToExistingSite);
-app.post('/sites', siteCollectionsController.post);
-app.get('/sites', siteCollectionsController.get);
-app.get('/sites/:id', siteCollectionsController.getById);
-app.put('/sites/:id', siteCollectionsController.put);
-app.delete('/sites/:id',  siteCollectionsController.deleteById);
+app.post('/api/sites/:id/site_pages', siteCollectionsController.postToExistingSite);
+app.post('/api/sites', siteCollectionsController.post);
+app.get('/api/sites', siteCollectionsController.get);
+app.get('/api/sites/:id', siteCollectionsController.getById);
+app.put('/api/sites/:id', siteCollectionsController.put);
+app.delete('/api/sites/:id',  siteCollectionsController.deleteById);

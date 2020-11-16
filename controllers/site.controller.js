@@ -63,7 +63,10 @@ function put(req, res) {
         { _id: new mongodb.ObjectId(req.params.id) },
         { $set: req.body },
         function () {
-            res.send('Success updated!')
+            db.collection('sites')
+            .findOne({ _id: new mongodb.ObjectId(req.params.id) }, function (err, items) {
+                res.send(items)
+            })
         }
     )
 }
